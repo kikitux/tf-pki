@@ -39,15 +39,15 @@ resource "tls_cert_request" "csr" {
     common_name  = "${each.key}.${var.domain}" # Just a name, the real names and adresses are in SANs
     organization = "Cluster"
   }
-  ip_addresses = [
+  ip_addresses = distinct([
     "127.0.0.1",
-    "127.0.0.1" != each.value ? each.value : "",
-  ]
-  dns_names = [
+    each.value,
+  ])
+  dns_names = distinct([
     "localhost",
-    "localhost" != each.key ? each.key : "",
-    "localhost" != each.key ? "${each.key}.${var.domain}" : "",
-  ]
+    "#{each.key}.${var.domain}",
+    each.key,
+  ])
 }
 
 # Singing each of the generated certs with the CA
