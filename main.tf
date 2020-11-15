@@ -40,7 +40,8 @@ resource "tls_cert_request" "csr" {
     organization = "Cluster"
   }
   ip_addresses = [
-    "127.0.0.1" == each.value ? "127.0.0.1" : "127.0.0.1, ${each.value}"
+    "127.0.0.1",
+    "127.0.0.1" != each.value ? each.value : "",
   ]
   dns_names = [
     "${each.key}.${var.domain}",
