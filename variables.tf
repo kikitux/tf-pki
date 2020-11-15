@@ -8,6 +8,7 @@ variable "hosts" {
   description = "map of hosts"
   default = {
     "localhost" = "127.0.0.1"
+  }
 }
 
 variable "domain" {
