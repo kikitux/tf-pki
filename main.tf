@@ -44,7 +44,7 @@ resource "tls_cert_request" "csr" {
     "127.0.0.1" != each.value ? each.value : "",
   ]
   dns_names = [
-    "localhost"
+    "localhost",
     "localhost" != each.key ? each.key : "",
     "localhost" != each.key ? "${each.key}.${var.domain}" : "",
   ]
